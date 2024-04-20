@@ -27,12 +27,19 @@ public class User {
   private GenderType gender;
   private int point;
   private LocalDate firstMeetDate;
+
+  private String invitedCode;
+
+  public void setInvitedCode(String invitedCode) {
+    this.invitedCode = invitedCode;
+  }
+
   @OneToOne
   @JoinColumn(name = "couple_id")
   private Couple couple;
 
   @Builder
-  public User(String id, String provider, String providerId, String username, String email, Date birth, GenderType gender, int point, LocalDate firstMeetDate, Couple couple) {
+  public User(String id, String provider, String providerId, String username, String email, Date birth, GenderType gender, int point, LocalDate firstMeetDate, String invitedCode, Couple couple) {
     this.id = id;
     this.provider = provider;
     this.providerId = providerId;
@@ -42,6 +49,7 @@ public class User {
     this.gender = gender;
     this.point = point;
     this.firstMeetDate = firstMeetDate;
+    this.invitedCode = invitedCode;
     this.couple = couple;
   }
 }
