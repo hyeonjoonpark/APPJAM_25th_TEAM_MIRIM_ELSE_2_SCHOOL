@@ -28,6 +28,6 @@ public class QuestionController {
   @Operation(summary = "Select a enswer", description = "질문에 대한 답 선택하기")
   public ResponseEntity<String> select(@RequestBody QuestionIdRequest dto) {
    questionService.selectOption(dto);
-   return ResponseEntity.ok(dto.id().toString() + "를 선택하였습니다");
+   return ResponseEntity.ok().build();
   }
 }

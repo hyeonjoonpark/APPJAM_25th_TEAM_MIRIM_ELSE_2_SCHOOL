@@ -34,6 +34,11 @@ public class User {
   @Enumerated(EnumType.STRING)
   private GenderType gender;
   private int point;
+
+  public void setPoint(int point) {
+    this.point = point;
+  }
+
   private LocalDate firstMeetDate;
 
   private String invitedCode;

@@ -21,6 +21,6 @@ public class CoupleController {
   @Operation(summary = "Create Invited Code", description="초대코드 생성")
   public ResponseEntity<String> addCouple(@RequestBody CoupleRequest dto) {
     coupleService.addCouple(dto);
-    return ResponseEntity.ok("성공적으로 초대를 하였습니다");
+    return ResponseEntity.ok().build();
   }
 }
