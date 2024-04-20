@@ -1,5 +1,6 @@
 package org.appjam.project.global.config;
 
+;
 import lombok.RequiredArgsConstructor;
 import org.appjam.project.domain.auth.service.CustomOAuth2UserService;
 import org.springframework.context.annotation.Bean;
@@ -25,12 +26,13 @@ public class SecurityConfig {
       .authorizeHttpRequests(
         auth -> auth
           .requestMatchers("/", "/oauth2/**", "/api/login/**", "/login/**").permitAll()
-          .anyRequest().permitAll()
+          .anyRequest().authenticated()
       )
       .oauth2Login((oauth2) -> oauth2
+        .loginPage("/login") // 커스텀 로그인 페이지
         .userInfoEndpoint((userInfoEndpointConfig) ->
           userInfoEndpointConfig.userService(customOAuth2UserService))
-        .defaultSuccessUrl("/")
+        .defaultSuccessUrl("/home")
       );
 
     return http.build();

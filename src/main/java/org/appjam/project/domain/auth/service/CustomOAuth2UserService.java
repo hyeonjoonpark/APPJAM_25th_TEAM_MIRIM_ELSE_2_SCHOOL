@@ -1,6 +1,7 @@
 package org.appjam.project.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.appjam.project.domain.auth.presentation.dto.response.CustomOAuth2User;
 import org.appjam.project.domain.auth.presentation.dto.response.OAuth2Response;
 import org.appjam.project.domain.auth.presentation.dto.response.google.GoogleResponse;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
   private final UserRepository userRepository;
 
@@ -22,6 +24,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
   public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
     OAuth2User oAuth2User = super.loadUser(userRequest);
     System.out.println("oAuth2User = " + oAuth2User.getAttributes());
+    log.info("oAuth2User = {}", oAuth2User);
 
     String registrationId = userRequest.getClientRegistration().getRegistrationId();
 
