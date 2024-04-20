@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -21,10 +23,14 @@ public class UserService {
       return ResponseEntity.badRequest().body("이미 존재하는 닉네임입니다");
     }
 
+    String randomUUID = UUID.randomUUID().toString();
+    String invitedCode = dto.nickname() + "." + randomUUID;
+
     user = User.builder()
       .nickname(dto.nickname())
       .birth(dto.birth())
       .firstMeetDate(dto.firstMeetDate())
+      .invitedCode(invitedCode)
       .build();
 
     userRepository.save(user);
