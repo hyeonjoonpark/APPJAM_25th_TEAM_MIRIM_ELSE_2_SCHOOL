@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.appjam.project.domain.couple.Couple;
 import org.appjam.project.domain.user.types.GenderType;
+import org.appjam.project.domain.user.types.RoleType;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -22,6 +23,11 @@ public class User {
   private String providerId;
   private String username;
   private String email;
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
   private Date birth;
   @Enumerated(EnumType.STRING)
   private GenderType gender;
@@ -38,8 +44,11 @@ public class User {
   @JoinColumn(name = "couple_id")
   private Couple couple;
 
+  @Enumerated(EnumType.STRING)
+  private RoleType role;
+
   @Builder
-  public User(String id, String provider, String providerId, String username, String email, Date birth, GenderType gender, int point, LocalDate firstMeetDate, String invitedCode, Couple couple) {
+  public User(String id, String provider, String providerId, String username, String email, Date birth, GenderType gender, int point, LocalDate firstMeetDate, String invitedCode, Couple couple, RoleType role) {
     this.id = id;
     this.provider = provider;
     this.providerId = providerId;
@@ -51,5 +60,6 @@ public class User {
     this.firstMeetDate = firstMeetDate;
     this.invitedCode = invitedCode;
     this.couple = couple;
+    this.role = role;
   }
 }
