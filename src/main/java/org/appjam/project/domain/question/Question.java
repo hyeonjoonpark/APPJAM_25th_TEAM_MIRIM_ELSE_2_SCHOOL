@@ -29,6 +29,10 @@ public class Question {
   @Enumerated(EnumType.STRING)
   private SelectedType whichSelected;
 
+  public void setWhichSelected(SelectedType whichSelected) {
+    this.whichSelected = whichSelected;
+  }
+
   @CreationTimestamp
   private LocalDateTime uploadDate = LocalDateTime.now();
 
