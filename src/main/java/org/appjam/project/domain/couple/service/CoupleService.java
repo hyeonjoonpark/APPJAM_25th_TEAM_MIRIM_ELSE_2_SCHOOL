@@ -43,11 +43,7 @@ public class CoupleService {
 
     // Couple 정보 저장
     coupleRepository.save(couple);
-
-    // 초대코드 생성 및 반환 로직 추가 예정
-    // 예시로 UUID를 사용하여 초대코드를 생성하고 반환
-    String inviteCode = UUID.randomUUID().toString();
-    return ResponseEntity.ok().body("초대코드가 생성되었습니다: " + inviteCode);
+    return ResponseEntity.ok().body("커플이 추가되었습니다");
   }
 
 }

@@ -17,19 +17,19 @@ public class Couple {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "couple_id")
   private Long id;
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.MERGE)
   @JoinColumn(name = "male_user_id", referencedColumnName = "user_id")
   private User malePerson;
-  @OneToOne(cascade = CascadeType.ALL)
+
+  @OneToOne(cascade = CascadeType.MERGE)
   @JoinColumn(name = "female_user_id", referencedColumnName = "user_id")
   private User femalePerson;
-  private LocalTime questionReceiveTime;
+
 
   @Builder
-  public Couple(Long id, User malePerson, User femalePerson, LocalTime questionReceiveTime) {
+  public Couple(Long id, User malePerson, User femalePerson) {
     this.id = id;
     this.malePerson = malePerson;
     this.femalePerson = femalePerson;
-    this.questionReceiveTime = questionReceiveTime;
   }
 }
