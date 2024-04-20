@@ -11,39 +11,48 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CoupleService {
   private final UserRepository userRepository;
   private final CoupleRepository coupleRepository;
+
   @Transactional
   public ResponseEntity<String> addCouple(CoupleRequest dto) {
-    User user = userRepository.findByNickname(dto.username());
-    User opponent = userRepository.findByNickname(dto.opponentName());
+    Optional<User> userOptional = Optional.ofNullable(userRepository.findByUsername(dto.username()));
+    Optional<User> opponentOptional = Optional.ofNullable(userRepository.findByUsername(dto.opponentName()));
 
-    if (user == null || opponent == null) {
+    if (userOptional.isEmpty() || opponentOptional.isEmpty()) {
       return ResponseEntity.badRequest().body("존재하지 않는 닉네임입니다.");
     }
 
-    // 사용자와 상대방의 성별에 따라 Couple 엔티티를 생성
-    Couple couple;
+    User user = userOptional.get();
+    User opponent = opponentOptional.get();
+
+    // 이미 커플 관계인지 확인
+    if (user.getCouple() != null || opponent.getCouple() != null) {
+      return ResponseEntity.badRequest().body("이미 커플 관계입니다.");
+    }
+
+    Couple couple = createCoupleBasedOnGender(user, opponent);
+    coupleRepository.save(couple);
+
+    return ResponseEntity.ok().body("커플이 추가되었습니다");
+  }
+
+  private Couple createCoupleBasedOnGender(User user, User opponent) {
     if (user.getGender().equals(GenderType.MALE)) {
-      couple = Couple.builder()
+      return Couple.builder()
         .malePerson(user)
         .femalePerson(opponent)
         .build();
     } else {
-      couple = Couple.builder()
+      return Couple.builder()
         .malePerson(opponent)
         .femalePerson(user)
         .build();
     }
-
-    // Couple 정보 저장
-    coupleRepository.save(couple);
-    return ResponseEntity.ok().body("커플이 추가되었습니다");
   }
-
 }
