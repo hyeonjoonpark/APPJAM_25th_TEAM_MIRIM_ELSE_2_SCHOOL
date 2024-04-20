@@ -2,6 +2,7 @@ package org.appjam.project.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.appjam.project.domain.auth.presentation.dto.UserDTO;
 import org.appjam.project.domain.auth.presentation.dto.response.CustomOAuth2User;
 import org.appjam.project.domain.auth.presentation.dto.response.OAuth2Response;
 import org.appjam.project.domain.auth.presentation.dto.response.google.GoogleResponse;
@@ -52,8 +53,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
       role = String.valueOf(userData.getRole());
       userData.setEmail(oAuth2Response.getEmail());
       userRepository.save(userData);
+
+      // 로그인 성공 시 accessToken 리턴
+      return oAuth2User;
     }
 
-    return new CustomOAuth2User(oAuth2Response, role);
+    UserDTO userDto = new UserDTO();
+    return new CustomOAuth2User(userDto, oAuth2Response, role);
   }
 }
