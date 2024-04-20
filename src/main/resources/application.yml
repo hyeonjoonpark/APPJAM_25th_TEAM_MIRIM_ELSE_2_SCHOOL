@@ -22,3 +22,10 @@ server:
 
 jwt:
   secret: ThisIsAuthenticatedJwtSecretKeyForAppJamHackerthon
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
