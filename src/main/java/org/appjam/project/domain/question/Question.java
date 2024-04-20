@@ -20,6 +20,8 @@ public class Question {
   @Column(name = "question_id")
   private Long id;
 
+  private String question;
+
   private String firstOption;
   private String secondOption;
 
@@ -37,8 +39,9 @@ public class Question {
   private LocalDateTime uploadDate = LocalDateTime.now();
 
   @Builder
-  public Question(Long id, String firstOption, String secondOption, User uploader, SelectedType whichSelected, LocalDateTime uploadDate) {
+  public Question(Long id, String question, String firstOption, String secondOption, User uploader, SelectedType whichSelected, LocalDateTime uploadDate) {
     this.id = id;
+    this.question = question;
     this.firstOption = firstOption;
     this.secondOption = secondOption;
     this.uploader = uploader;
