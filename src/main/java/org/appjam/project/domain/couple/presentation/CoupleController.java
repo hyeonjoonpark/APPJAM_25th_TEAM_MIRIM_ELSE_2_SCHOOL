@@ -21,6 +21,6 @@ public class CoupleController {
   public ResponseEntity<String> addCouple(@RequestBody String userName) {
     // 초대코드를 만들어서 초대코드를 받은 사람을 데이터베이스에 추가
     coupleService.create(userName);
-    return null;
+    return ResponseEntity.ok("초대코드를 성공적으로 생성하였습니다");
   }
 }

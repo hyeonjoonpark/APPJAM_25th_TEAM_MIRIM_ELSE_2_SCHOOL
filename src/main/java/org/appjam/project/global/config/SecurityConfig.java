@@ -20,6 +20,7 @@ public class SecurityConfig {
       .httpBasic(AbstractHttpConfigurer::disable)
       .authorizeHttpRequests(
         request -> request.requestMatchers("/api").permitAll()
+          .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
           .anyRequest().permitAll()
       )
       .sessionManagement(
